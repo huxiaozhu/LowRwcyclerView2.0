@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             protected void setData(BaseViewHoloder holder, int position, String item) {
                 Button button = holder.getButton(R.id.btn);
                 button.setText(item);
-                Log.e("111", "posiotion" + position + "id::" + button.getId());
             }
         };
         new LowRecyclerViewUtils<>(mRecyclerView, 0, adapter);
