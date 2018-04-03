@@ -1,11 +1,17 @@
 package com.liuxiaozhu.lowrecyclerview;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.liuxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHoloder;
+import com.liuxiaozhu.recyclerviewlib.onClick.LowClickListener;
 import com.liuxiaozhu.recyclerviewlib.utils.LowRecyclerViewUtils;
 
 import java.util.ArrayList;
@@ -13,26 +19,80 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
+    private ListViewAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.re);
+        setData();
+        setListener();
+    }
+
+    private void setData() {
         List<String> data = new ArrayList<>();
-        data.add("1");
-        data.add("1");
-        data.add("1");
-        data.add("1");
-        data.add("1");
-        data.add("1");
-        ListViewAdapter<String> adapter = new ListViewAdapter<String>(data, this, R.layout.item) {
+        data.add("listview");
+        data.add("水平ListView");
+        data.add("GridView");
+        data.add("水平GridView");
+        data.add("瀑布流");
+        data.add("通讯录顶吸效果");
+        data.add("画廊");
+        adapter = new ListViewAdapter<String>(data, this, R.layout.item) {
             @Override
             protected void setData(BaseViewHoloder holder, int position, String item) {
-                holder.getTextView(R.id.textView).setText(item);
+                Button button = holder.getButton(R.id.btn);
+                button.setText(item);
+                Log.e("111", "posiotion" + position + "id::" + button.getId());
             }
         };
         new LowRecyclerViewUtils<>(mRecyclerView, 0, adapter);
         mRecyclerView.setAdapter(adapter);
     }
+
+    private void setListener() {
+        mRecyclerView.addOnItemTouchListener(new LowClickListener(this, mRecyclerView, new LowClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.e("11122", "posiotion" + position + "id::" + view.getId());
+                switch (position) {
+                    case 0:
+                        //ListView
+                        Toast.makeText(getBaseContext(), "ListView", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        //水平ListView
+                        Toast.makeText(getBaseContext(), "水平ListView", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        //GridView
+                        Toast.makeText(getBaseContext(), "GridView", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        //水平GridView
+                        Toast.makeText(getBaseContext(), "水平GridView", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        //瀑布流
+                        Toast.makeText(getBaseContext(), "瀑布流", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        //通讯录顶吸效果
+                        Toast.makeText(getBaseContext(), "通讯录顶吸效果", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, AddressListActivity.class));
+                        break;
+                    case 6:
+                        Toast.makeText(getBaseContext(), "画廊", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        }));
+    }
+
 }

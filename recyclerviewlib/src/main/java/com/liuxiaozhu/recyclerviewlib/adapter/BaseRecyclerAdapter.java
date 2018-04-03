@@ -14,11 +14,6 @@ import com.liuxiaozhu.recyclerviewlib.callbacks.IEmptyView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IFooterView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IHeaderView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IPullLoading;
-import com.liuxiaozhu.recyclerviewlib.callbacks.IRcyclerClickBack;
-import com.liuxiaozhu.recyclerviewlib.callbacks.OnClick;
-import com.liuxiaozhu.recyclerviewlib.callbacks.OnItemClick;
-import com.liuxiaozhu.recyclerviewlib.callbacks.OnItemLongClick;
-import com.liuxiaozhu.recyclerviewlib.callbacks.OnLongClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +24,7 @@ import java.util.List;
  * RecyclerView的适配器的基类
  * 所有的adapter必须继承该类
  */
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHoloder> implements IRcyclerClickBack {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHoloder>{
     //存放列表数据
     protected List<T> mData;
     //布局填充器
@@ -54,11 +49,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     //// TODO: 2017/8/17 上啦加载待优化
     protected int pullLoadingPosition = 10;
     public boolean isLoading = false;
-    //主要处理RecyclerView列表的数据（不包括）
-    private OnClick onClick;
-    private OnItemClick onItemClick;
-    private OnLongClick onLongClick;
-    private OnItemLongClick onItemLongClick;
 
     //HeaderView回掉接口，用来设置HeaderView
     protected IHeaderView mIHeaderView;
@@ -351,75 +341,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
             size = 1;
         }
         return size;
-    }
-
-
-    /**
-     * ************************点击事件的回掉方法*****************************
-     */
-
-    @Override
-    public void onItemClickBack(int position, View view, BaseViewHoloder holder) {
-        if (onItemClick != null) {
-            onItemClick.onItemClick(position - getHeaderView().size(), view, holder);
-        }
-    }
-
-    @Override
-    public void onLongItemClickBack(int position, View view, BaseViewHoloder holder) {
-        if (onItemLongClick != null) {
-            onItemLongClick.onItemLongClick(position, view, holder);
-        }
-    }
-
-    @Override
-    public void onViewClick(int position, View view, BaseViewHoloder holder) {
-        if (onClick != null) {
-            onClick.onClick(position, view, holder);
-        }
-    }
-
-    @Override
-    public void onViewLongClick(int position, View view, BaseViewHoloder holder) {
-        if (onLongClick != null) {
-            onLongClick.onLongClick(position, view, holder);
-        }
-    }
-
-    /**
-     * 子view点击事件
-     *
-     * @param onClick
-     */
-    public void setOnClick(OnClick onClick) {
-        this.onClick = onClick;
-    }
-
-    /**
-     * Item点击事件
-     *
-     * @param onItemClick
-     */
-    public void setOnItemClick(OnItemClick onItemClick) {
-        this.onItemClick = onItemClick;
-    }
-
-    /**
-     * 子view长按点击事件
-     *
-     * @param onLongClick
-     */
-    public void setOnLongClick(OnLongClick onLongClick) {
-        this.onLongClick = onLongClick;
-    }
-
-    /**
-     * Item长按点击事件
-     *
-     * @param onItemLongClick
-     */
-    public void setOnItemLongClick(OnItemLongClick onItemLongClick) {
-        this.onItemLongClick = onItemLongClick;
     }
 
 

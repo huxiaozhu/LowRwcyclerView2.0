@@ -26,13 +26,11 @@ public abstract class HGridViewAdapter<T> extends BaseRecyclerAdapter {
     }
     @Override
     public BaseViewHoloder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new BaseViewHoloder(mInflater.inflate(mLayoutId,parent,false),this);
+        return new BaseViewHoloder(mInflater.inflate(mLayoutId,parent,false));
     }
 
     @Override
     public void onBindViewHolder(BaseViewHoloder holder, int position) {
-        //此处将每一个item的position传入adapter
-        holder.setmPosition(position);
         setData(holder,position, (T) mData.get(position));
     }
     /**

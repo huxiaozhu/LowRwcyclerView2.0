@@ -37,19 +37,19 @@ public abstract class WaterFullAdapter<T> extends BaseRecyclerAdapter {
         BaseViewHoloder holoder = null;
         if (viewType == 40000) {
             //没有数据
-            holoder = new BaseViewHoloder(mInflater.inflate(noDataViewId,parent,false), this);
+            holoder = new BaseViewHoloder(mInflater.inflate(noDataViewId,parent,false));
         } else {
             if (viewType < 10000) {
                 //headerView
                 View headerView = mInflater.inflate((Integer) getHeaderView().get(viewType), parent, false);
-                holoder = new BaseViewHoloder(headerView , this);
+                holoder = new BaseViewHoloder(headerView);
             } else if (viewType == 10000) {
                 //列表数据
-                holoder = new BaseViewHoloder(mInflater.inflate(mLayoutId, parent,false), this);
+                holoder = new BaseViewHoloder(mInflater.inflate(mLayoutId, parent,false));
             } else if (viewType < 40000) {
                 //footerView
                 View footerView = mInflater.inflate((Integer) getFooterView().get(viewType - 20000), parent, false);
-                holoder = new BaseViewHoloder(footerView, this);
+                holoder = new BaseViewHoloder(footerView);
             }
         }
         return holoder;
@@ -57,8 +57,6 @@ public abstract class WaterFullAdapter<T> extends BaseRecyclerAdapter {
 
     @Override
     public void onBindViewHolder(BaseViewHoloder holder, int position) {
-        //此处将每一个item的position传入adapter
-        holder.setmPosition(position);
         if (isNoData) {
             setWaterFall(holder);
             if (mIEmptyView != null) {
