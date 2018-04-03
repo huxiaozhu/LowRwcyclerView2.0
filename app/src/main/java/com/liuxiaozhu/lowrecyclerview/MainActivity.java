@@ -52,10 +52,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListener() {
-        mRecyclerView.addOnItemTouchListener(new LowClickListener(this, mRecyclerView, new LowClickListener.OnItemClickListener() {
+        mRecyclerView.addOnItemTouchListener(new LowClickListener(this, mRecyclerView) {
             @Override
-            public void onItemClick(View view, int position) {
-                Log.e("11122", "posiotion" + position + "id::" + view.getId());
+            protected void onItemClick(View view, int position, BaseViewHoloder holder) {
                 switch (position) {
                     case 0:
                         //ListView
@@ -89,10 +88,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
+            protected void onItemLongClick(View view, int position, BaseViewHoloder holder) {
 
             }
-        }));
+        });
     }
-
 }
