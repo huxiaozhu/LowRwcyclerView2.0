@@ -60,8 +60,8 @@ public class LowRecyclerViewUtils<T> {
                 @Override
                 public int getSpanSize(int position) {
                     if (mAdapter.getHeaderView().size() > position
-                            || position >= mAdapter.getHeaderView().size() + mAdapter.getmData().size()
-                            || mAdapter.getmData().size() + mAdapter.getHeaderView().size() + mAdapter.getFooterView().size() == 0) {
+                            || position >= mAdapter.getHeaderView().size() + mAdapter.getData().size()
+                            || mAdapter.getData().size() + mAdapter.getHeaderView().size() + mAdapter.getFooterView().size() == 0) {
                         return mNunColumns;
                     } else {
                         return 1;
@@ -100,7 +100,7 @@ public class LowRecyclerViewUtils<T> {
      * @param dividerColor
      */
     public void addItemDecoration(int dividerHeight, @ColorRes int dividerColor) {
-        if (mAdapter.getHeaderView().size()+mAdapter.getmData().size()+mAdapter.getFooterView().size()==0) {
+        if (mAdapter.getHeaderView().size()+mAdapter.getData().size()+mAdapter.getFooterView().size()==0) {
             //没有数据不绘制分割线
         } else {
             mRecyclerView.addItemDecoration(new RecyclerDivider<T>(dividerHeight,

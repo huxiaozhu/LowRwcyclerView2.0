@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.liuxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHoloder;
-import com.liuxiaozhu.recyclerviewlib.onClick.LowClickListener;
 import com.liuxiaozhu.recyclerviewlib.utils.LowRecyclerViewUtils;
 
 import java.util.ArrayList;
@@ -51,45 +49,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListener() {
-        mRecyclerView.addOnItemTouchListener(new LowClickListener(this, mRecyclerView) {
-            @Override
-            protected void onItemClick(View view, int position, BaseViewHoloder holder) {
-                switch (position) {
-                    case 0:
-                        //ListView
-                        Toast.makeText(getBaseContext(), "ListView", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        //水平ListView
-                        Toast.makeText(getBaseContext(), "水平ListView", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        //GridView
-                        Toast.makeText(getBaseContext(), "GridView", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        //水平GridView
-                        Toast.makeText(getBaseContext(), "水平GridView", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 4:
-                        //瀑布流
-                        Toast.makeText(getBaseContext(), "瀑布流", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 5:
-                        //通讯录顶吸效果
-                        Toast.makeText(getBaseContext(), "通讯录顶吸效果", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, AddressListActivity.class));
-                        break;
-                    case 6:
-                        Toast.makeText(getBaseContext(), "画廊", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-
-            @Override
-            protected void onItemLongClick(View view, int position, BaseViewHoloder holder) {
-
-            }
-        });
+//        switch (position) {
+//            case 0:
+//                //ListView
+//                Toast.makeText(getBaseContext(), "ListView", Toast.LENGTH_SHORT).show();
+//                break;
+//            case 1:
+//                //水平ListView
+//                Toast.makeText(getBaseContext(), "水平ListView", Toast.LENGTH_SHORT).show();
+//                break;
+//            case 2:
+//                //GridView
+//                Toast.makeText(getBaseContext(), "GridView", Toast.LENGTH_SHORT).show();
+//                break;
+//            case 3:
+//                //水平GridView
+//                Toast.makeText(getBaseContext(), "水平GridView", Toast.LENGTH_SHORT).show();
+//                break;
+//            case 4:
+//                //瀑布流
+//                Toast.makeText(getBaseContext(), "瀑布流", Toast.LENGTH_SHORT).show();
+//                break;
+//            case 5:
+//                //通讯录顶吸效果
+//                Toast.makeText(getBaseContext(), "通讯录顶吸效果", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(MainActivity.this, AddressListActivity.class));
+//                break;
+//            case 6:
+//                Toast.makeText(getBaseContext(), "画廊", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
     }
 }

@@ -43,7 +43,7 @@ public class RecyclerDivider<T> extends RecyclerView.ItemDecoration {
         mAdapter = adapter;
         head = mAdapter.getHeaderView().size();
         foot = mAdapter.getFooterView().size();
-        data = mAdapter.getmData().size();
+        data = mAdapter.getData().size();
         final TypedArray a = mAdapter.getContext().obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -64,7 +64,7 @@ public class RecyclerDivider<T> extends RecyclerView.ItemDecoration {
         mAdapter = adapter;
         head = mAdapter.getHeaderView().size();
         foot = mAdapter.getFooterView().size();
-        data = mAdapter.getmData().size();
+        data = mAdapter.getData().size();
 //        初始化画笔
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(dividerColor);

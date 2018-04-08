@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.liuxiaozhu.recyclerviewlib.R;
@@ -150,7 +149,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      *
      * @return
      */
-    public List<T> getmData() {
+    public List<T> getData() {
         return mData;
     }
 

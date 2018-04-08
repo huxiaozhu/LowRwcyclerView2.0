@@ -2,6 +2,7 @@ package com.liuxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -73,6 +74,7 @@ public abstract class GridViewAdapter<T> extends BaseRecyclerAdapter {
             }
         }
     }
+
     /**
      * 设置列表数据
      * @param holder
