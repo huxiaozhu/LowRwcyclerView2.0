@@ -5,7 +5,8 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.view.ViewGroup;
 
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHoloder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * 横向滑动的GridView适配器
  */
 
-public abstract class HGridViewAdapter<T> extends BaseRecyclerAdapter {
+public abstract class HGridViewAdapter<T> extends BaseAdapter {
     public HGridViewAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
         super(data, mContext, layoutId);
     }
@@ -25,13 +26,14 @@ public abstract class HGridViewAdapter<T> extends BaseRecyclerAdapter {
         return mData.size();
     }
     @Override
-    public BaseViewHoloder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new BaseViewHoloder(mInflater.inflate(mLayoutId,parent,false));
+    public BaseViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ListViewHolder(mLayoutId,parent);
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHoloder holder, int position) {
-        setData(holder,position, (T) mData.get(position));
+    public void onBindViewHolder(BaseViewViewHolder holder, int position) {
+        setData((ListViewHolder) holder,position, (T) mData.get(position));
+        setClickLisiner(holder, position);
     }
     /**
      * 设置列表数据
@@ -39,5 +41,5 @@ public abstract class HGridViewAdapter<T> extends BaseRecyclerAdapter {
      * @param position
      * @param item
      */
-    protected abstract void setData(BaseViewHoloder holder, int position, T item);
+    protected abstract void setData(ListViewHolder holder, int position, T item);
 }

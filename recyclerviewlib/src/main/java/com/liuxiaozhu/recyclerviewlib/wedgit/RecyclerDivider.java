@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.liuxiaozhu.recyclerviewlib.adapter.BaseRecyclerAdapter;
+import com.liuxiaozhu.recyclerviewlib.adapter.BaseAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.HGridViewAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.HListViewAdapter;
@@ -26,7 +26,7 @@ public class RecyclerDivider<T> extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
     protected int mDividerHeight = 2;//分割线高度，默认为2px
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};//系统的默认颜色
-    protected BaseRecyclerAdapter<T> mAdapter;
+    protected BaseAdapter<T> mAdapter;
     protected int mNunColumns = 2;
     private int head = 0;
     private int foot = 0;
@@ -37,7 +37,7 @@ public class RecyclerDivider<T> extends RecyclerView.ItemDecoration {
      * 此方法过时（主要是自定义分割线的特殊颜色如渐变等，一般开发中使用不到）
      */
     @Deprecated
-    public RecyclerDivider(int dividerHeight, BaseRecyclerAdapter<T> adapter, int nunColumns) {
+    public RecyclerDivider(int dividerHeight, BaseAdapter<T> adapter, int nunColumns) {
         mDividerHeight = dividerHeight;
         mNunColumns = nunColumns;
         mAdapter = adapter;
@@ -57,7 +57,7 @@ public class RecyclerDivider<T> extends RecyclerView.ItemDecoration {
      * @param adapter
      * @param nunColumns RecyclerView的行数或列数
      */
-    public RecyclerDivider(int dividerHeight, BaseRecyclerAdapter<T> adapter, int dividerColor, int nunColumns) {
+    public RecyclerDivider(int dividerHeight, BaseAdapter<T> adapter, int dividerColor, int nunColumns) {
 //        this(dividerHeight, adapter, nunColumns);
         mDividerHeight = dividerHeight;
         mNunColumns = nunColumns;

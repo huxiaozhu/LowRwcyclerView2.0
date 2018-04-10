@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,7 +21,7 @@ import android.widget.TextView;
  * ViewHoloder的封装
  */
 
-public class BaseViewHoloder extends RecyclerView.ViewHolder{
+public class BaseViewViewHolder extends RecyclerView.ViewHolder{
     /**
      * 存储每个item中的子控件（牺牲了一定的内存，但是不用每次都需要findviewbyid）
      */
@@ -30,9 +31,13 @@ public class BaseViewHoloder extends RecyclerView.ViewHolder{
      */
     private View mView;
 
-    public BaseViewHoloder(View view) {
+    private BaseViewViewHolder(View view) {
         super(view);//必须实现
         this.mView = view;
+    }
+
+    protected BaseViewViewHolder(int mLayoutId, ViewGroup parent) {
+        this(LayoutInflater.from(parent.getContext()).inflate(mLayoutId, parent, false));
     }
 
     /**
@@ -40,7 +45,7 @@ public class BaseViewHoloder extends RecyclerView.ViewHolder{
      *
      * @return
      */
-    public View getAbroadView() {
+    public View getItemView() {
         return mView;
     }
 

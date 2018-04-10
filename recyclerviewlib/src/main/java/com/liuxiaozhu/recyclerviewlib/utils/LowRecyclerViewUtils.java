@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import com.liuxiaozhu.recyclerviewlib.adapter.BaseRecyclerAdapter;
+import com.liuxiaozhu.recyclerviewlib.adapter.BaseAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.HGridViewAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.HListViewAdapter;
@@ -25,10 +25,10 @@ import com.liuxiaozhu.recyclerviewlib.wedgit.RecyclerDivider;
 public class LowRecyclerViewUtils<T> {
     protected Context mContext;
     protected RecyclerView mRecyclerView;
-    protected BaseRecyclerAdapter<T> mAdapter;
+    protected BaseAdapter<T> mAdapter;
     protected int mNunColumns = 2;
 
-    public LowRecyclerViewUtils(RecyclerView recyclerView, int nunColumns, BaseRecyclerAdapter<T> adapter) {
+    public LowRecyclerViewUtils(RecyclerView recyclerView, int nunColumns, BaseAdapter<T> adapter) {
         if (recyclerView == null || adapter == null) {
             throw new RuntimeException("recyclerView或者adapter为空");
         }

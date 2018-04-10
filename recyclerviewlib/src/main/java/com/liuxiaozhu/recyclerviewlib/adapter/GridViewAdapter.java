@@ -2,12 +2,14 @@ package com.liuxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHoloder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.EmptyViewHolder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.FootViewHolder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.HeadViewHolder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
  * GridView的适配器
  */
 
-public abstract class GridViewAdapter<T> extends BaseRecyclerAdapter {
+public abstract class GridViewAdapter<T> extends BaseAdapter {
     public GridViewAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
         super(data, mContext, layoutId);
     }
@@ -33,45 +35,44 @@ public abstract class GridViewAdapter<T> extends BaseRecyclerAdapter {
     }
 
     @Override
-    public BaseViewHoloder onCreateViewHolder(ViewGroup parent, int viewType) {
-        BaseViewHoloder holoder = null;
+    public BaseViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        BaseViewViewHolder holoder = null;
         if (viewType == 40000) {
             //没有数据
-            holoder = new BaseViewHoloder(mInflater.inflate(noDataViewId,parent,false));
+            holoder = new EmptyViewHolder(noDataViewId,parent);
         } else {
             if (viewType < 10000) {
                 //headerView
-                View headerView = mInflater.inflate((Integer) getHeaderView().get(viewType),parent,false);
-                holoder = new BaseViewHoloder(headerView);
+                holoder = new HeadViewHolder((Integer) getHeaderView().get(viewType),parent);
             } else if (viewType == 10000) {
                 //列表数据
-                holoder = new BaseViewHoloder(mInflater.inflate(mLayoutId, parent,false));
+                holoder = new ListViewHolder(mLayoutId, parent);
             } else if (viewType < 40000) {
                 //footerView
-                View footerView = mInflater.inflate((Integer) getFooterView().get(viewType - 20000), parent, false);
-                holoder = new BaseViewHoloder(footerView);
+                holoder = new FootViewHolder((Integer) getFooterView().get(viewType - 20000), parent);
             }
         }
         return holoder;
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHoloder holder, int position) {
+    public void onBindViewHolder(BaseViewViewHolder holder, int position) {
         if (isNoData) {
             if (mIEmptyView != null) {
-                mIEmptyView.setEmptyView(holder.getAbroadView());
+                mIEmptyView.setEmptyView(holder.getItemView());
             }
         } else {
-            if (position < getHeaderView().size()) {
-                mIHeaderView.HeaderView(holder.getAbroadView(), position);
-            } else if (position < mData.size() + getHeaderView().size()) {
-                setData(holder, position - getHeaderView().size(), (T) mData.get(position - getHeaderView().size()));
-            } else {
-                mIFootView.FooterView(holder.getAbroadView(),position-getHeaderView().size()-mData.size());
+            if (holder instanceof HeadViewHolder) {
+                mIHeaderView.HeaderView(holder.getItemView(), position);
+            } else if (holder instanceof ListViewHolder) {
+                setData((ListViewHolder) holder, position - getHeaderView().size(), (T) mData.get(position - getHeaderView().size()));
+            } else if (holder instanceof FootViewHolder) {
+                mIFootView.FooterView(holder.getItemView(),position-getHeaderView().size()-mData.size());
             }
             if (position >= pullLoadingPosition - 1 && mIPullLoading != null) {
                 mIPullLoading.PullToLoading();
             }
+            setClickLisiner(holder, position);
         }
     }
 
@@ -81,5 +82,5 @@ public abstract class GridViewAdapter<T> extends BaseRecyclerAdapter {
      * @param position
      * @param item
      */
-    protected abstract void setData(BaseViewHoloder holder, int position, T item);
+    protected abstract void setData(ListViewHolder holder, int position, T item);
 }

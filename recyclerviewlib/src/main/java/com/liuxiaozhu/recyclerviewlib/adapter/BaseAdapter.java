@@ -2,13 +2,14 @@
 package com.liuxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.liuxiaozhu.recyclerviewlib.R;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHoloder;
+import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IEmptyView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IFooterView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IHeaderView;
@@ -23,11 +24,10 @@ import java.util.List;
  * RecyclerView的适配器的基类
  * 所有的adapter必须继承该类
  */
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHoloder>{
+public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHolder> {
     //存放列表数据
     protected List<T> mData;
-    //布局填充器
-    protected LayoutInflater mInflater;
+
     protected Context mContext;
     //列表Item的Id
     protected int mLayoutId = 0;
@@ -59,6 +59,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     // ，当绑定最后一个数据的时候会执行该接口的回掉方法
     protected IPullLoading mIPullLoading;
 
+    private ClickLisiner clickLisiner;
+
     /**
      * 通用的构造方法
      * 这个方法主要是为LowRecyclerView中的所有适配器提供公共的方法和数据
@@ -67,15 +69,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      * @param mContext
      * @param layoutId
      */
-    public BaseRecyclerAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
+    public BaseAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
         if (mData == null) {
             mData = new ArrayList<>();
         }
-        if (data != null) {
-            mData.addAll(data);
-        }
+        mData.addAll(data);
         this.mContext = mContext;
-        mInflater = LayoutInflater.from(mContext);
         if (layoutId != 0) {
             mLayoutId = layoutId;
         }
@@ -92,7 +91,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      * 这个构造方法主要是用来定制adapter
      * 主要是用来扩展，实现更多功能
      */
-    public BaseRecyclerAdapter(Context context, List<T> data) {
+    public BaseAdapter(Context context, List<T> data) {
         this(data, context, 0);
     }
 
@@ -108,7 +107,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      * @return
      */
     @Override
-    public BaseViewHoloder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
     }
 
@@ -119,7 +118,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
      * @param position
      */
     @Override
-    public void onBindViewHolder(BaseViewHoloder holder, int position) {
+    public void onBindViewHolder(BaseViewViewHolder holder, int position) {
     }
 
 
@@ -427,4 +426,152 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
         }
     }
 
+    /**
+     * *******************************
+     * 设置监听
+     */
+    public interface OnClick {
+        void onClick(int position, BaseViewViewHolder holder);
+    }
+
+    public interface OnLongClick {
+        void onLongClick(int position, BaseViewViewHolder holder);
+    }
+
+    public interface OnItemClick {
+        void onItemClick(int position, BaseViewViewHolder holder);
+    }
+
+    public interface OnItemLongClick {
+        void onItemLongClick(int position, BaseViewViewHolder holder);
+    }
+
+    public void setOnClickListener(@IdRes int id, OnClick listener) {
+        if (listener == null) throw new NullPointerException("OnClick不能为空");
+        if (clickLisiner == null) clickLisiner = new ClickLisiner();
+        clickLisiner.setClickId(id);
+        clickLisiner.setOnClick(listener);
+    }
+
+    public void setOnLongClickListener(@IdRes int id, OnLongClick listener) {
+        if (listener == null) throw new NullPointerException("OnClick不能为空");
+        if (clickLisiner == null) clickLisiner = new ClickLisiner();
+        clickLisiner.setLongClickId(id);
+        clickLisiner.setOnLongClick(listener);
+    }
+
+    public void setOnItemClickListener(OnItemClick listener) {
+        if (listener == null) throw new NullPointerException("OnClick不能为空");
+        if (clickLisiner == null) clickLisiner = new ClickLisiner();
+        clickLisiner.setOnItemClick(listener);
+    }
+
+    public void setOnItenLongClickListener(OnItemLongClick listener) {
+        if (listener == null) throw new NullPointerException("OnClick不能为空");
+        if (clickLisiner == null) clickLisiner = new ClickLisiner();
+        clickLisiner.setOnItemLongClick(listener);
+    }
+
+    private class ClickLisiner {
+        private OnClick onClick;
+        private OnLongClick onLongClick;
+        private OnItemClick onItemClick;
+        private OnItemLongClick onItemLongClick;
+        private int clickId;
+        private int longClickId;
+
+        public OnClick getOnClick() {
+            return onClick;
+        }
+
+        public void setOnClick(OnClick onClick) {
+            this.onClick = onClick;
+        }
+
+        public OnLongClick getOnLongClick() {
+            return onLongClick;
+        }
+
+        public void setOnLongClick(OnLongClick onLongClick) {
+            this.onLongClick = onLongClick;
+        }
+
+        public OnItemClick getOnItemClick() {
+            return onItemClick;
+        }
+
+        public void setOnItemClick(OnItemClick onItemClick) {
+            this.onItemClick = onItemClick;
+        }
+
+        public OnItemLongClick getOnItemLongClick() {
+            return onItemLongClick;
+        }
+
+        public void setOnItemLongClick(OnItemLongClick onItemLongClick) {
+            this.onItemLongClick = onItemLongClick;
+        }
+
+        public int getClickId() {
+            return clickId;
+        }
+
+        public void setClickId(int clickId) {
+            this.clickId = clickId;
+        }
+
+        public int getLongClickId() {
+            return longClickId;
+        }
+
+        public void setLongClickId(int longClickId) {
+            this.longClickId = longClickId;
+        }
+    }
+
+    /**
+     * 子view实现
+     * @param holder
+     * @param position
+     */
+    protected void setClickLisiner(final BaseViewViewHolder holder, final int position) {
+        if (clickLisiner != null) {
+            if (clickLisiner.getOnClick() != null) {
+                View view = holder.getView(clickLisiner.clickId);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickLisiner.getOnClick().onClick(position, holder);
+                    }
+                });
+            }
+            if (clickLisiner.getOnLongClick() != null) {
+                View view = holder.getView(clickLisiner.longClickId);
+                view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        clickLisiner.getOnLongClick().onLongClick(position, holder);
+                        return true;
+                    }
+                });
+            }
+            if (clickLisiner.getOnItemClick() != null) {
+                holder.getItemView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickLisiner.getOnItemClick().onItemClick(position, holder);
+                    }
+                });
+            }
+            if (clickLisiner.getOnLongClick() != null) {
+                holder.getItemView().setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        clickLisiner.getOnLongClick().onLongClick(position, holder);
+                        return true;
+                    }
+                });
+            }
+        }
+    }
 }
