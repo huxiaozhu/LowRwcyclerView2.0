@@ -21,23 +21,23 @@ import com.liuxiaozhu.recyclerviewlib.adapter.WaterFullAdapter;
  * All Rights Reserved by YiZu
  * 通用recyclerView的分割线
  */
-public class RecyclerDivider<T> extends RecyclerView.ItemDecoration {
+public class RecyclerDivider extends RecyclerView.ItemDecoration {
     private Paint mPaint;
     private Drawable mDivider;
-    protected int mDividerHeight = 2;//分割线高度，默认为2px
+    protected int mDividerHeight;//分割线高度，默认为2px
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};//系统的默认颜色
-    protected BaseAdapter<T> mAdapter;
-    protected int mNunColumns = 2;
-    private int head = 0;
-    private int foot = 0;
-    private int data = 0;
+    protected BaseAdapter mAdapter;
+    protected int mNunColumns;
+    private int head;
+    private int foot;
+    private int data;
 
     /**
      * 默认分割线 高度为2px，颜色为灰色（系统色）
      * 此方法过时（主要是自定义分割线的特殊颜色如渐变等，一般开发中使用不到）
      */
     @Deprecated
-    public RecyclerDivider(int dividerHeight, BaseAdapter<T> adapter, int nunColumns) {
+    public RecyclerDivider(int dividerHeight, BaseAdapter adapter, int nunColumns) {
         mDividerHeight = dividerHeight;
         mNunColumns = nunColumns;
         mAdapter = adapter;
@@ -57,7 +57,7 @@ public class RecyclerDivider<T> extends RecyclerView.ItemDecoration {
      * @param adapter
      * @param nunColumns RecyclerView的行数或列数
      */
-    public RecyclerDivider(int dividerHeight, BaseAdapter<T> adapter, int dividerColor, int nunColumns) {
+    public RecyclerDivider(int dividerHeight, BaseAdapter adapter, int dividerColor, int nunColumns) {
 //        this(dividerHeight, adapter, nunColumns);
         mDividerHeight = dividerHeight;
         mNunColumns = nunColumns;

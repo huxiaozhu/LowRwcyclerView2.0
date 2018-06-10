@@ -2,6 +2,8 @@ package com.liuxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 
@@ -20,8 +22,25 @@ import java.util.List;
  */
 
 public abstract class GridViewAdapter<T> extends BaseAdapter {
-    public GridViewAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
-        super(data, mContext, layoutId);
+    public GridViewAdapter(List<T> data, RecyclerView recyclerView, int spanCount) {
+        super(data,recyclerView);
+        if (spanCount>2) mNunColumns = spanCount;
+        final int finalMNunColumns = mNunColumns;
+        GridLayoutManager manager = new GridLayoutManager(mContext, finalMNunColumns);
+        manager.setOrientation(GridLayoutManager.VERTICAL);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (getHeaderView().size() > position
+                        || position >= getHeaderView().size() + getData().size()
+                        || getData().size() + getHeaderView().size() +getFooterView().size() == 0) {
+                    return finalMNunColumns;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        recyclerView.setLayoutManager(manager);
     }
 
     @Override

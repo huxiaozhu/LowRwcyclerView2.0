@@ -1,8 +1,7 @@
 
 package com.liuxiaozhu.recyclerviewlib.adapter;
 
-import android.content.Context;
-import android.support.annotation.LayoutRes;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
@@ -20,8 +19,11 @@ import java.util.List;
  */
 
 public abstract class WaterFullAdapter<T> extends BaseAdapter {
-    public WaterFullAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
-        super(data, mContext, layoutId);
+    public WaterFullAdapter(List<T> data, RecyclerView recyclerView, int spanCount) {
+        super(data, recyclerView);
+        if (spanCount > 2) mNunColumns = spanCount;
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(mNunColumns, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
     }
 
     @Override
@@ -40,7 +42,7 @@ public abstract class WaterFullAdapter<T> extends BaseAdapter {
         BaseViewViewHolder holoder = null;
         if (viewType == 40000) {
             //没有数据
-            holoder = new EmptyViewHolder(noDataViewId,parent);
+            holoder = new EmptyViewHolder(noDataViewId, parent);
         } else {
             if (viewType < 10000) {
                 //headerView
@@ -66,12 +68,12 @@ public abstract class WaterFullAdapter<T> extends BaseAdapter {
         } else {
             if (holder instanceof HeadViewHolder) {
                 setWaterFall(holder);
-                mIHeaderView.HeaderView(holder.getItemView(),position);
+                mIHeaderView.HeaderView(holder.getItemView(), position);
             } else if (holder instanceof ListViewHolder) {
                 setData((ListViewHolder) holder, position - getHeaderView().size(), (T) mData.get(position - getHeaderView().size()));
             } else if (holder instanceof FootViewHolder) {
                 setWaterFall(holder);
-                mIFootView.FooterView(holder.getItemView(),position-getHeaderView().size()-mData.size());
+                mIFootView.FooterView(holder.getItemView(), position - getHeaderView().size() - mData.size());
             }
             if (position >= pullLoadingPosition - 1 && mIPullLoading != null) {
                 mIPullLoading.PullToLoading();
@@ -80,6 +82,7 @@ public abstract class WaterFullAdapter<T> extends BaseAdapter {
         }
 
     }
+
     /**
      * 瀑布流时将头部最外面的布局设置成铺满
      *
@@ -93,6 +96,7 @@ public abstract class WaterFullAdapter<T> extends BaseAdapter {
 
     /**
      * 设置列表数据
+     *
      * @param holder
      * @param position
      * @param item

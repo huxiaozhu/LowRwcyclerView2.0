@@ -11,7 +11,6 @@ import com.liuxiaozhu.recyclerviewlib.adapter.BaseAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
 import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
 import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
-import com.liuxiaozhu.recyclerviewlib.utils.LowRecyclerViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +37,19 @@ public class MainActivity extends AppCompatActivity {
         data.add("瀑布流");
         data.add("通讯录顶吸效果");
         data.add("画廊");
-        adapter = new ListViewAdapter<String>(data, this, R.layout.item) {
+        adapter = new ListViewAdapter<String>(data, mRecyclerView) {
+            @Override
+            protected int getItemLayoutId() {
+                return R.layout.item;
+            }
+
             @Override
             protected void setData(ListViewHolder holder, int position, String item) {
                 Button button = holder.getButton(R.id.btn);
                 button.setText(item);
             }
         };
-        new LowRecyclerViewUtils<>(mRecyclerView, 0, adapter);
-        mRecyclerView.setAdapter(adapter);
+        adapter.addItemDecoration(5, R.color.colorAccent);
     }
 
     private void setListener() {

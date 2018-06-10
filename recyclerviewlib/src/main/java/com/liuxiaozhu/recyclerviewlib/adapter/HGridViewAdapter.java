@@ -1,8 +1,8 @@
 
 package com.liuxiaozhu.recyclerviewlib.adapter;
 
-import android.content.Context;
-import android.support.annotation.LayoutRes;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
@@ -17,26 +17,33 @@ import java.util.List;
  */
 
 public abstract class HGridViewAdapter<T> extends BaseAdapter {
-    public HGridViewAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
-        super(data, mContext, layoutId);
+    public HGridViewAdapter(List<T> data, RecyclerView recyclerView, int spanCount) {
+        super(data, recyclerView);
+        if (spanCount > 2) mNunColumns = spanCount;
+        GridLayoutManager manager = new GridLayoutManager(mContext, mNunColumns);
+        manager.setOrientation(GridLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(manager);
     }
 
     @Override
     public int getItemCount() {
         return mData.size();
     }
+
     @Override
     public BaseViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ListViewHolder(mLayoutId,parent);
+        return new ListViewHolder(mLayoutId, parent);
     }
 
     @Override
     public void onBindViewHolder(BaseViewViewHolder holder, int position) {
-        setData((ListViewHolder) holder,position, (T) mData.get(position));
+        setData((ListViewHolder) holder, position, (T) mData.get(position));
         setClickLisiner(holder, position);
     }
+
     /**
      * 设置列表数据
+     *
      * @param holder
      * @param position
      * @param item

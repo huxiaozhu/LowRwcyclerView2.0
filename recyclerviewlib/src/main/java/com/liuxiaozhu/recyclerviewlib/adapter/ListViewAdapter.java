@@ -3,6 +3,10 @@ package com.liuxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
@@ -25,8 +29,12 @@ import java.util.List;
 
 public abstract class ListViewAdapter<T> extends BaseAdapter {
 
-    public ListViewAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
-        super(data, mContext, layoutId);
+    protected ListViewAdapter(List<T> data, RecyclerView recycler) {
+        super(data, recycler);
+        //设置recyclerView显示方式
+        LinearLayoutManager manager = new LinearLayoutManager(mContext);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recycler.setLayoutManager(manager);
     }
 
     /**
@@ -69,7 +77,7 @@ public abstract class ListViewAdapter<T> extends BaseAdapter {
                 holoder = new HeadViewHolder((Integer) getHeaderView().get(viewType), parent);
             } else if (viewType == 10000) {
                 //列表数据
-                holoder =new ListViewHolder(mLayoutId, parent);
+                holoder = new ListViewHolder(mLayoutId, parent);
             } else if (viewType < 40000) {
                 //footerView
                 holoder = new FootViewHolder((Integer) getFooterView().get(viewType - 20000), parent);
@@ -96,11 +104,11 @@ public abstract class ListViewAdapter<T> extends BaseAdapter {
             } else if (holder instanceof ListViewHolder) {
                 setData((ListViewHolder) holder, position - getHeaderView().size(), (T) mData.get(position - getHeaderView().size()));
             } else if (holder instanceof FootViewHolder) {
-                mIFootView.FooterView(holder.getItemView(),position-getHeaderView().size()-mData.size());
+                mIFootView.FooterView(holder.getItemView(), position - getHeaderView().size() - mData.size());
             }
             //上拉加载,绑定数据的时候，如果position为
             if (isLoading) {
-                if (position-getHeaderView().size() >= pullLoadingPosition - 1 && mIPullLoading != null) {
+                if (position - getHeaderView().size() >= pullLoadingPosition - 1 && mIPullLoading != null) {
                     mIPullLoading.PullToLoading();
                     pullLoadingPosition = pullLoadingPosition + 20;
                 }

@@ -2,6 +2,7 @@
 package com.liuxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.liuxiaozhu.recyclerviewlib.callbacks.IEmptyView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IFooterView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IHeaderView;
 import com.liuxiaozhu.recyclerviewlib.callbacks.IPullLoading;
+import com.liuxiaozhu.recyclerviewlib.wedgit.RecyclerDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,11 @@ import java.util.List;
  * 所有的adapter必须继承该类
  */
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHolder> {
+    protected final RecyclerView mRecyclerView;
     //存放列表数据
     protected List<T> mData;
+    //网格默认为2
+    protected int mNunColumns = 2;
 
     protected Context mContext;
     //列表Item的Id
@@ -66,34 +71,34 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      * 这个方法主要是为LowRecyclerView中的所有适配器提供公共的方法和数据
      *
      * @param data
-     * @param mContext
-     * @param layoutId
+     * @param recyclerView
      */
-    public BaseAdapter(List<T> data, Context mContext, @LayoutRes int layoutId) {
-        if (mData == null) {
+    public BaseAdapter(List<T> data, RecyclerView recyclerView) {
+        if (data != null) {
+            mData = data;
+        } else {
             mData = new ArrayList<>();
         }
-        mData.addAll(data);
-        this.mContext = mContext;
-        if (layoutId != 0) {
-            mLayoutId = layoutId;
+        if (recyclerView == null) {
+            throw new NullPointerException("RecyclerView is not null");
         }
-        // TODO: 2017/7/25 待优化
+        mRecyclerView = recyclerView;
+        this.mContext = recyclerView.getContext();
+        mLayoutId = getItemLayoutId();
         if (mFooterView == null) {
             mFooterView = new ArrayList<>();
         }
         if (mHeaderView == null) {
             mHeaderView = new ArrayList<>();
         }
+        mRecyclerView.setAdapter(this);
     }
 
     /**
-     * 这个构造方法主要是用来定制adapter
-     * 主要是用来扩展，实现更多功能
+     * @return 必须返回itemView的布局id
      */
-    public BaseAdapter(Context context, List<T> data) {
-        this(data, context, 0);
-    }
+    protected abstract @LayoutRes
+    int getItemLayoutId();
 
     /**
      * *******RecyclerView.Adapter的四个方法，这里复写主要是让子类继承***************
@@ -531,6 +536,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
 
     /**
      * 子view实现
+     *
      * @param holder
      * @param position
      */
@@ -574,4 +580,20 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
             }
         }
     }
+
+    /**
+     * 分割线
+     * @param dividerHeight
+     * @param dividerColor
+     */
+    public void addItemDecoration(int dividerHeight, @ColorRes int dividerColor) {
+        if (getHeaderView().size()+getData().size()+getFooterView().size()==0) {
+            //没有数据不绘制分割线
+        } else {
+            mRecyclerView.addItemDecoration(new RecyclerDivider(dividerHeight,
+                    this, mContext.getResources().getColor(dividerColor), mNunColumns));
+        }
+    }
+
+
 }
