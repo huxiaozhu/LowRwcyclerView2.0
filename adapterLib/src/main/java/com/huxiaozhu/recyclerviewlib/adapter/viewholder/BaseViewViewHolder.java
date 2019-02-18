@@ -1,5 +1,5 @@
 
-package com.liuxiaozhu.recyclerviewlib.adapter.viewholder;
+package com.huxiaozhu.recyclerviewlib.adapter.viewholder;
 
 import android.support.annotation.IdRes;
 

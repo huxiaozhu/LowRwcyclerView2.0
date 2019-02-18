@@ -1,27 +1,25 @@
 
-package com.liuxiaozhu.recyclerviewlib.adapter;
+package com.huxiaozhu.recyclerviewlib.adapter;
 
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
 
 import java.util.List;
 
 /**
  * Created by liuxiaozhu on 2017/7/18.
  * All Rights Reserved by YiZu
- * 横向滑动的GridView适配器
  */
 
-public abstract class HGridViewAdapter<T> extends BaseAdapter {
-    public HGridViewAdapter(List<T> data, RecyclerView recyclerView, int spanCount) {
+public abstract class HListViewAdapter<T> extends BaseAdapter {
+    public HListViewAdapter(List<T> data, RecyclerView recyclerView) {
         super(data, recyclerView);
-        if (spanCount > 2) mNunColumns = spanCount;
-        GridLayoutManager manager = new GridLayoutManager(mContext, mNunColumns);
-        manager.setOrientation(GridLayoutManager.HORIZONTAL);
+        LinearLayoutManager manager = new LinearLayoutManager(mContext);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
     }
 
@@ -37,13 +35,11 @@ public abstract class HGridViewAdapter<T> extends BaseAdapter {
 
     @Override
     public void onBindViewHolder(BaseViewViewHolder holder, int position) {
-        setData((ListViewHolder) holder, position, (T) mData.get(position));
+        setData((ListViewHolder) holder,position, (T) mData.get(position));
         setClickLisiner(holder, position);
     }
-
     /**
      * 设置列表数据
-     *
      * @param holder
      * @param position
      * @param item

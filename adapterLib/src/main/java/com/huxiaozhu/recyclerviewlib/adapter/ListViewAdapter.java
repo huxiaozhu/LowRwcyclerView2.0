@@ -1,19 +1,15 @@
 
-package com.liuxiaozhu.recyclerviewlib.adapter;
+package com.huxiaozhu.recyclerviewlib.adapter;
 
-import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.EmptyViewHolder;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.FootViewHolder;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.HeadViewHolder;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.EmptyViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.FootViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.HeadViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
 
-package com.liuxiaozhu.recyclerviewlib.callbacks;
+package com.huxiaozhu.recyclerviewlib.callbacks;
 
 /**
  * Created by liuxiaozhu on 2017/7/21.

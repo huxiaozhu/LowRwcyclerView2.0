@@ -1,6 +1,5 @@
-package com.liuxiaozhu.recyclerviewlib.adapter.viewholder;
+package com.huxiaozhu.recyclerviewlib.adapter.viewholder;
 
-import android.view.View;
 import android.view.ViewGroup;
 
 /**

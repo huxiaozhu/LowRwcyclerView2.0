@@ -1,5 +1,5 @@
 
-package com.liuxiaozhu.recyclerviewlib.adapter;
+package com.huxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
@@ -9,13 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.liuxiaozhu.recyclerviewlib.R;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
-import com.liuxiaozhu.recyclerviewlib.callbacks.IEmptyView;
-import com.liuxiaozhu.recyclerviewlib.callbacks.IFooterView;
-import com.liuxiaozhu.recyclerviewlib.callbacks.IHeaderView;
-import com.liuxiaozhu.recyclerviewlib.callbacks.IPullLoading;
-import com.liuxiaozhu.recyclerviewlib.wedgit.RecyclerDivider;
+import com.huxiaozhu.recyclerviewlib.R;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
+import com.huxiaozhu.recyclerviewlib.callbacks.IEmptyView;
+import com.huxiaozhu.recyclerviewlib.callbacks.IFooterView;
+import com.huxiaozhu.recyclerviewlib.callbacks.IHeaderView;
+import com.huxiaozhu.recyclerviewlib.callbacks.IPullLoading;
+import com.huxiaozhu.recyclerviewlib.wedgit.RecyclerDivider;
 
 import java.util.ArrayList;
 import java.util.List;

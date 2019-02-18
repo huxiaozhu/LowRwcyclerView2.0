@@ -1,4 +1,4 @@
-package com.liuxiaozhu.lowrecyclerview;
+package com.huxiaozhu.lowrecyclerview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

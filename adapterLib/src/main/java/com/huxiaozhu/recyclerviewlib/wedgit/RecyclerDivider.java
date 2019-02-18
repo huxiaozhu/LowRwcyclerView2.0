@@ -1,5 +1,5 @@
 
-package com.liuxiaozhu.recyclerviewlib.wedgit;
+package com.huxiaozhu.recyclerviewlib.wedgit;
 
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,12 +9,12 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.liuxiaozhu.recyclerviewlib.adapter.BaseAdapter;
-import com.liuxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
-import com.liuxiaozhu.recyclerviewlib.adapter.HGridViewAdapter;
-import com.liuxiaozhu.recyclerviewlib.adapter.HListViewAdapter;
-import com.liuxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
-import com.liuxiaozhu.recyclerviewlib.adapter.WaterFullAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.BaseAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.HGridViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.HListViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.WaterFullAdapter;
 
 /**
  * Created by chenhui on 2017/4/26.

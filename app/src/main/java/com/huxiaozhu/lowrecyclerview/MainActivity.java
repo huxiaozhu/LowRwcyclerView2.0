@@ -1,4 +1,4 @@
-package com.liuxiaozhu.lowrecyclerview;
+package com.huxiaozhu.lowrecyclerview;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.liuxiaozhu.recyclerviewlib.adapter.BaseAdapter;
-import com.liuxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
-import com.liuxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.BaseAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

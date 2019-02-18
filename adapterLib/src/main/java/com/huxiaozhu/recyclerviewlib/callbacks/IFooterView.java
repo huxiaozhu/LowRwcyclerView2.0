@@ -1,5 +1,5 @@
 
-package com.liuxiaozhu.recyclerviewlib.callbacks;
+package com.huxiaozhu.recyclerviewlib.callbacks;
 
 import android.view.View;
 
