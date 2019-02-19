@@ -29,9 +29,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     //列表Item的Id
     private int mLayoutId = 0;
 
-    //EmptyView的Id
-//    protected int noDataViewId = R.layout.no_data;
-
     private ClickLisiner clickLisiner;
 
     /**
