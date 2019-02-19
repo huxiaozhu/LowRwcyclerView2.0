@@ -14,7 +14,7 @@ import com.huxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.HGridViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.HListViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
-import com.huxiaozhu.recyclerviewlib.adapter.WaterFullAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.VariableAdapter;
 
 /**
  * Created by chenhui on 2017/4/26.
@@ -41,8 +41,8 @@ public class RecyclerDivider extends RecyclerView.ItemDecoration {
         mDividerHeight = dividerHeight;
         mNunColumns = nunColumns;
         mAdapter = adapter;
-        head = mAdapter.getHeaderView().size();
-        foot = mAdapter.getFooterView().size();
+//        head = mAdapter.getHeaderView().size();
+//        foot = mAdapter.getFooterView().size();
         data = mAdapter.getData().size();
         final TypedArray a = mAdapter.getContext().obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
@@ -62,8 +62,8 @@ public class RecyclerDivider extends RecyclerView.ItemDecoration {
         mDividerHeight = dividerHeight;
         mNunColumns = nunColumns;
         mAdapter = adapter;
-        head = mAdapter.getHeaderView().size();
-        foot = mAdapter.getFooterView().size();
+//        head = mAdapter.getHeaderView().size();
+//        foot = mAdapter.getFooterView().size();
         data = mAdapter.getData().size();
 //        初始化画笔
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -88,7 +88,7 @@ public class RecyclerDivider extends RecyclerView.ItemDecoration {
         if (mAdapter instanceof GridViewAdapter) {
             setGrid(itemPosition, outRect);
         }
-        if (mAdapter instanceof WaterFullAdapter) {
+        if (mAdapter instanceof VariableAdapter) {
             setWDicider(itemPosition, outRect);
         }
         if (mAdapter instanceof HGridViewAdapter) {
@@ -131,7 +131,7 @@ public class RecyclerDivider extends RecyclerView.ItemDecoration {
             drawButtom(c, parent);
             drawRigth(c, parent);
         }
-        if (mAdapter instanceof WaterFullAdapter) {
+        if (mAdapter instanceof VariableAdapter) {
             drawButtom(c, parent);
             drawRigth(c, parent);
         }
@@ -188,18 +188,20 @@ public class RecyclerDivider extends RecyclerView.ItemDecoration {
         } else if (position < head + data) {
             if (isLastColumn(position)) {
 //                最后一列右侧不偏移，如果没添加尾部且是最后一行，底部不偏移
-                if (mAdapter.getFooterView().size()==0 && isLastLines(position)) {
-                    outRect.set(0, 0, 0, 0);
-                } else {
-                    outRect.set(0, 0, 0, mDividerHeight);
-                }
+//                if (mAdapter.getFooterView().size()==0 && isLastLines(position)) {
+//                    outRect.set(0, 0, 0, 0);
+//                } else {
+//                    outRect.set(0, 0, 0, mDividerHeight);
+//                }
+				outRect.set(0, 0, 0, mDividerHeight);
             } else if (isLastLines(position)) {
 //                最后一行
-                if (mAdapter.getFooterView().size()!=0) {
-                    outRect.set(0, 0, mDividerHeight, mDividerHeight);
-                } else {
-                    outRect.set(0, 0, mDividerHeight, 0);
-                }
+//                if (mAdapter.getFooterView().size()!=0) {
+//                    outRect.set(0, 0, mDividerHeight, mDividerHeight);
+//                } else {
+//                    outRect.set(0, 0, mDividerHeight, 0);
+//                }
+                outRect.set(0, 0, mDividerHeight, 0);
             } else {
                 outRect.set(0, 0, mDividerHeight, mDividerHeight);
             }

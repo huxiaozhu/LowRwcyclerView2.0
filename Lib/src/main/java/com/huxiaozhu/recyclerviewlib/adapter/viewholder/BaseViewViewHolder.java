@@ -31,7 +31,7 @@ public class BaseViewViewHolder extends RecyclerView.ViewHolder{
      */
     private View mView;
 
-    private BaseViewViewHolder(View view) {
+    protected BaseViewViewHolder(View view) {
         super(view);//必须实现
         this.mView = view;
     }

@@ -1,12 +1,14 @@
 
 package com.huxiaozhu.recyclerviewlib.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
+import com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView;
 
 import java.util.List;
 
@@ -17,12 +19,9 @@ import java.util.List;
  */
 
 public abstract class HGridViewAdapter<T> extends BaseAdapter {
-    public HGridViewAdapter(List<T> data, RecyclerView recyclerView, int spanCount) {
-        super(data, recyclerView);
+    public HGridViewAdapter(List<T> data, Context context, int spanCount) {
+        super(data, context);
         if (spanCount > 2) mNunColumns = spanCount;
-        GridLayoutManager manager = new GridLayoutManager(mContext, mNunColumns);
-        manager.setOrientation(GridLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(manager);
     }
 
     @Override

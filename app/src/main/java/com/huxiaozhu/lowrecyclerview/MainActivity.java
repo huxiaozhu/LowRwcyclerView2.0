@@ -3,21 +3,24 @@ package com.huxiaozhu.lowrecyclerview;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.huxiaozhu.recyclerviewlib.adapter.BaseAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.VariableAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
+import com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
-    private ListViewAdapter<String> adapter;
+    private ExpandRecyclerView mRecyclerView;
+    private VariableAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         data.add("瀑布流");
         data.add("通讯录顶吸效果");
         data.add("画廊");
-        adapter = new ListViewAdapter<String>(data, mRecyclerView) {
+        adapter = new VariableAdapter<String>(data, this,2) {
             @Override
             protected int getItemLayoutId() {
                 return R.layout.item;
@@ -49,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 button.setText(item);
             }
         };
-        adapter.addItemDecoration(5, R.color.colorAccent);
+
+		mRecyclerView.addHeaderView(View.inflate(this,R.layout.header_view,null));
+		mRecyclerView.addFooterView(View.inflate(this,R.layout.header_view,null));
+//        adapter.addItemDecoration(5, R.color.colorAccent);
+		mRecyclerView.setAdapter(adapter);
     }
 
     private void setListener() {

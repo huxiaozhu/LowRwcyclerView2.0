@@ -1,12 +1,14 @@
 
 package com.huxiaozhu.recyclerviewlib.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
+import com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView;
 
 import java.util.List;
 
@@ -16,11 +18,8 @@ import java.util.List;
  */
 
 public abstract class HListViewAdapter<T> extends BaseAdapter {
-    public HListViewAdapter(List<T> data, RecyclerView recyclerView) {
-        super(data, recyclerView);
-        LinearLayoutManager manager = new LinearLayoutManager(mContext);
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(manager);
+    public HListViewAdapter(List<T> data, Context context) {
+        super(data, context);
     }
 
     @Override

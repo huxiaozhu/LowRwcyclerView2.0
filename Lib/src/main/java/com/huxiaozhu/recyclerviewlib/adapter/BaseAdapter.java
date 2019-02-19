@@ -16,6 +16,7 @@ import com.huxiaozhu.recyclerviewlib.callbacks.IFooterView;
 import com.huxiaozhu.recyclerviewlib.callbacks.IHeaderView;
 import com.huxiaozhu.recyclerviewlib.callbacks.IPullLoading;
 import com.huxiaozhu.recyclerviewlib.wedgit.RecyclerDivider;
+import com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ import java.util.List;
  * 所有的adapter必须继承该类
  */
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHolder> {
-    protected final RecyclerView mRecyclerView;
     //存放列表数据
     protected List<T> mData;
     //网格默认为2
@@ -37,8 +37,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
     //列表Item的Id
     protected int mLayoutId = 0;
     //存放头部、尾部的ViewId集合
-    private List<Integer> mHeaderView;
-    private List<Integer> mFooterView;
+//    private List<Integer> mHeaderView;
+//    private List<Integer> mFooterView;
 
     //EmptyView的Id
     protected int noDataViewId = R.layout.no_data;
@@ -71,27 +71,26 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      * 这个方法主要是为LowRecyclerView中的所有适配器提供公共的方法和数据
      *
      * @param data
-     * @param recyclerView
      */
-    public BaseAdapter(List<T> data, RecyclerView recyclerView) {
+    public BaseAdapter(List<T> data, Context context) {
         if (data != null) {
             mData = data;
         } else {
             mData = new ArrayList<>();
         }
-        if (recyclerView == null) {
-            throw new NullPointerException("RecyclerView is not null");
-        }
-        mRecyclerView = recyclerView;
-        this.mContext = recyclerView.getContext();
+//        if (recyclerView == null) {
+//            throw new NullPointerException("RecyclerView is not null");
+//        }
+//        mRecyclerView = recyclerView;
+        this.mContext = context;
         mLayoutId = getItemLayoutId();
-        if (mFooterView == null) {
-            mFooterView = new ArrayList<>();
-        }
-        if (mHeaderView == null) {
-            mHeaderView = new ArrayList<>();
-        }
-        mRecyclerView.setAdapter(this);
+//        if (mFooterView == null) {
+//            mFooterView = new ArrayList<>();
+//        }
+//        if (mHeaderView == null) {
+//            mHeaderView = new ArrayList<>();
+//        }
+//        mRecyclerView.setAdapter(this);
     }
 
     /**
@@ -170,75 +169,75 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      * ********设置HeaderView、FooterView和PullToLoading（上拉加载）***********
      */
 
-    /**
-     * 获取HeaderView集合
-     *
-     * @return
-     */
-    public List<Integer> getHeaderView() {
-        return mHeaderView;
-    }
-
-    /**
-     * 添加HeaderView集合
-     *
-     * @param headerViewId
-     */
-    public void addHeaderView(List<Integer> headerViewId, IHeaderView IHeaderView) {
-        if (IHeaderView == null && headerViewId == null) {
-            throw new RuntimeException("IIHeaderView或者headerViewId不能为空");
-        }
-        mHeaderView.addAll(headerViewId);
-        this.mIHeaderView = IHeaderView;
-    }
-
-    /**
-     * 添加一个HeaderView
-     *
-     * @param headerViewId
-     */
-    public void addHeaderView(@LayoutRes int headerViewId, IHeaderView IHeaderView) {
-        if (IHeaderView == null) {
-            throw new RuntimeException("IIHeaderView不能为空");
-        }
-        mHeaderView.add(headerViewId);
-        this.mIHeaderView = IHeaderView;
-    }
-
-    /**
-     * 获取FooterView
-     *
-     * @return
-     */
-    public List<Integer> getFooterView() {
-        return mFooterView;
-    }
-
-    /**
-     * 添加FooterView集合
-     *
-     * @param footerViewIdList
-     */
-    public void addFooterView(List<Integer> footerViewIdList, IFooterView IFooterView) {
-        if (IFooterView == null && footerViewIdList == null) {
-            throw new RuntimeException("IIHeaderView或者headerViewId不能为空");
-        }
-        mFooterView.addAll(footerViewIdList);
-        this.mIFootView = IFooterView;
-    }
-
-    /**
-     * 添加单个FooterView
-     *
-     * @param footerViewId
-     */
-    public void addFooterView(@LayoutRes int footerViewId, IFooterView IFooterView) {
-        if (IFooterView == null) {
-            throw new RuntimeException("IIHeaderView不能为空");
-        }
-        mFooterView.add(footerViewId);
-        this.mIFootView = IFooterView;
-    }
+//    /**
+//     * 获取HeaderView集合
+//     *
+//     * @return
+//     */
+//    public List<Integer> getHeaderView() {
+//        return mHeaderView;
+//    }
+//
+//    /**
+//     * 添加HeaderView集合
+//     *
+//     * @param headerViewId
+//     */
+//    public void addHeaderView(List<Integer> headerViewId, IHeaderView IHeaderView) {
+//        if (IHeaderView == null && headerViewId == null) {
+//            throw new RuntimeException("IIHeaderView或者headerViewId不能为空");
+//        }
+//        mHeaderView.addAll(headerViewId);
+//        this.mIHeaderView = IHeaderView;
+//    }
+//
+//    /**
+//     * 添加一个HeaderView
+//     *
+//     * @param headerViewId
+//     */
+//    public void addHeaderView(@LayoutRes int headerViewId, IHeaderView IHeaderView) {
+//        if (IHeaderView == null) {
+//            throw new RuntimeException("IIHeaderView不能为空");
+//        }
+//        mHeaderView.add(headerViewId);
+//        this.mIHeaderView = IHeaderView;
+//    }
+//
+//    /**
+//     * 获取FooterView
+//     *
+//     * @return
+//     */
+//    public List<Integer> getFooterView() {
+//        return mFooterView;
+//    }
+//
+//    /**
+//     * 添加FooterView集合
+//     *
+//     * @param footerViewIdList
+//     */
+//    public void addFooterView(List<Integer> footerViewIdList, IFooterView IFooterView) {
+//        if (IFooterView == null && footerViewIdList == null) {
+//            throw new RuntimeException("IIHeaderView或者headerViewId不能为空");
+//        }
+//        mFooterView.addAll(footerViewIdList);
+//        this.mIFootView = IFooterView;
+//    }
+//
+//    /**
+//     * 添加单个FooterView
+//     *
+//     * @param footerViewId
+//     */
+//    public void addFooterView(@LayoutRes int footerViewId, IFooterView IFooterView) {
+//        if (IFooterView == null) {
+//            throw new RuntimeException("IIHeaderView不能为空");
+//        }
+//        mFooterView.add(footerViewId);
+//        this.mIFootView = IFooterView;
+//    }
 
     /**
      * 上拉加载,当加载到最后一条Item的时候，会执行接口的回掉方法，
@@ -309,25 +308,25 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      * 4.40000代表显示没有数据的默认布局
      */
     protected int setItemType(int posiotion) {
-        int type = 0;
-        if (isNoData) {
-            //没有数据
-            type = 40000;
-        } else {
-            if (posiotion < mHeaderView.size()) {
-                //添加了HeaderView
-                type = posiotion;
-            } else if (posiotion < mHeaderView.size() + mData.size()) {
-                //
-                type = 10000;
-            } else {
-                if (posiotion < mHeaderView.size() + mData.size() + mFooterView.size()) {
-                    //添加了FooterView
-                    type = (20000 + posiotion - mHeaderView.size() - mData.size());
-                }
-            }
-        }
-        return type;
+//        int type = 0;
+//        if (isNoData) {
+//            //没有数据
+//            type = 40000;
+//        } else {
+//            if (posiotion < mHeaderView.size()) {
+//                //添加了HeaderView
+//                type = posiotion;
+//            } else if (posiotion < mHeaderView.size() + mData.size()) {
+//                //
+//                type = 10000;
+//            } else {
+//                if (posiotion < mHeaderView.size() + mData.size() + mFooterView.size()) {
+//                    //添加了FooterView
+//                    type = (20000 + posiotion - mHeaderView.size() - mData.size());
+//                }
+//            }
+//        }
+        return posiotion;
     }
 
     /**
@@ -338,7 +337,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      */
     protected int setItemCount() {
         int size;
-        size = mHeaderView.size() + mData.size() + mFooterView.size();
+//        size = mHeaderView.size() + mData.size() + mFooterView.size();
+        size =  mData.size();
         if (size == 0 && isShowEmptyView) {
             isNoData = true;
             size = 1;
@@ -581,19 +581,22 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
         }
     }
 
-    /**
-     * 分割线
-     * @param dividerHeight
-     * @param dividerColor
-     */
-    public void addItemDecoration(int dividerHeight, @ColorRes int dividerColor) {
-        if (getHeaderView().size()+getData().size()+getFooterView().size()==0) {
-            //没有数据不绘制分割线
-        } else {
-            mRecyclerView.addItemDecoration(new RecyclerDivider(dividerHeight,
-                    this, mContext.getResources().getColor(dividerColor), mNunColumns));
-        }
-    }
+//    /**
+//     * 分割线
+//     * @param dividerHeight
+//     * @param dividerColor
+//     */
+//    public void addItemDecoration(int dividerHeight, @ColorRes int dividerColor) {
+//        if (getData().size()==0) {
+//            //没有数据不绘制分割线
+//        } else {
+//            mRecyclerView.addItemDecoration(new RecyclerDivider(dividerHeight,
+//                    this, mContext.getResources().getColor(dividerColor), mNunColumns));
+//        }
+//    }
 
+	public int getNumColums() {
+		return mNunColumns;
+	}
 
 }
