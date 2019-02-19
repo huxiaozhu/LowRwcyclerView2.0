@@ -21,7 +21,7 @@ import android.widget.TextView;
  * ViewHoloder的封装
  */
 
-public class BaseViewViewHolder extends RecyclerView.ViewHolder{
+public class BaseViewHolder extends RecyclerView.ViewHolder{
     /**
      * 存储每个item中的子控件（牺牲了一定的内存，但是不用每次都需要findviewbyid）
      */
@@ -31,12 +31,12 @@ public class BaseViewViewHolder extends RecyclerView.ViewHolder{
      */
     private View mView;
 
-    protected BaseViewViewHolder(View view) {
+    protected BaseViewHolder(View view) {
         super(view);//必须实现
         this.mView = view;
     }
 
-    protected BaseViewViewHolder(int mLayoutId, ViewGroup parent) {
+    public BaseViewHolder(int mLayoutId, ViewGroup parent) {
         this(LayoutInflater.from(parent.getContext()).inflate(mLayoutId, parent, false));
     }
 

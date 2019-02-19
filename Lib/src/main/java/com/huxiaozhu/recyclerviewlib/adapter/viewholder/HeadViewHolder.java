@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * 头布局
  */
-public class HeadViewHolder extends BaseViewViewHolder {
+public class HeadViewHolder extends BaseViewHolder {
 
     public HeadViewHolder(View view) {
         super(view);

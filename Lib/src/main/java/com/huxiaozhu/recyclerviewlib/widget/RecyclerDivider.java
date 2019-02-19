@@ -1,5 +1,5 @@
 
-package com.huxiaozhu.recyclerviewlib.wedgit;
+package com.huxiaozhu.recyclerviewlib.widget;
 
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -41,8 +41,6 @@ public class RecyclerDivider extends RecyclerView.ItemDecoration {
         mDividerHeight = dividerHeight;
         mNunColumns = nunColumns;
         mAdapter = adapter;
-//        head = mAdapter.getHeaderView().size();
-//        foot = mAdapter.getFooterView().size();
         data = mAdapter.getData().size();
         final TypedArray a = mAdapter.getContext().obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);

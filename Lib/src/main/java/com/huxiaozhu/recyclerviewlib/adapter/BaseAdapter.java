@@ -2,21 +2,13 @@
 package com.huxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.huxiaozhu.recyclerviewlib.R;
-import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
-import com.huxiaozhu.recyclerviewlib.callbacks.IEmptyView;
-import com.huxiaozhu.recyclerviewlib.callbacks.IFooterView;
-import com.huxiaozhu.recyclerviewlib.callbacks.IHeaderView;
-import com.huxiaozhu.recyclerviewlib.callbacks.IPullLoading;
-import com.huxiaozhu.recyclerviewlib.wedgit.RecyclerDivider;
-import com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,42 +19,18 @@ import java.util.List;
  * RecyclerView的适配器的基类
  * 所有的adapter必须继承该类
  */
-public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHolder> {
+public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     //存放列表数据
-    protected List<T> mData;
+    private List<T> mData;
     //网格默认为2
-    protected int mNunColumns = 2;
+    private int mNunColumns = 2;
 
-    protected Context mContext;
+    private Context mContext;
     //列表Item的Id
-    protected int mLayoutId = 0;
-    //存放头部、尾部的ViewId集合
-//    private List<Integer> mHeaderView;
-//    private List<Integer> mFooterView;
+    private int mLayoutId = 0;
 
     //EmptyView的Id
-    protected int noDataViewId = R.layout.no_data;
-    //是否显示EmptyView，默认显示
-    protected boolean isShowEmptyView = false;
-    //主要来判断RecyclerView有没有数据，false表示recyclerView中有数据
-    // (主要和isShowEmptyView配合使用，控制是否显示EmptyView)
-    protected boolean isNoData = false;
-
-    //上拉加载从第几个位置加载（位置包括HeaderView和FooterView）
-    //默认recyclerView的Itemsize大于等于10的时候上啦加载
-    //// TODO: 2017/8/17 上啦加载待优化
-    protected int pullLoadingPosition = 10;
-    public boolean isLoading = false;
-
-    //HeaderView回掉接口，用来设置HeaderView
-    protected IHeaderView mIHeaderView;
-    //FooterView回掉接口，用来设置FooterView
-    protected IFooterView mIFootView;
-    //EmptyView回掉接口,主要用来设置EmptyView
-    protected IEmptyView mIEmptyView;
-    //PullToLoading回掉接口，主要实现无感上拉刷新
-    // ，当绑定最后一个数据的时候会执行该接口的回掉方法
-    protected IPullLoading mIPullLoading;
+//    protected int noDataViewId = R.layout.no_data;
 
     private ClickLisiner clickLisiner;
 
@@ -72,32 +40,21 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      *
      * @param data
      */
-    public BaseAdapter(List<T> data, Context context) {
-        if (data != null) {
-            mData = data;
-        } else {
-            mData = new ArrayList<>();
-        }
-//        if (recyclerView == null) {
-//            throw new NullPointerException("RecyclerView is not null");
-//        }
-//        mRecyclerView = recyclerView;
+    BaseAdapter(List<T> data, Context context) {
+        mData = data != null ? data : (List<T>) new ArrayList<>();
         this.mContext = context;
         mLayoutId = getItemLayoutId();
-//        if (mFooterView == null) {
-//            mFooterView = new ArrayList<>();
-//        }
-//        if (mHeaderView == null) {
-//            mHeaderView = new ArrayList<>();
-//        }
-//        mRecyclerView.setAdapter(this);
+    }
+
+    BaseAdapter(List<T> data, Context context, int spanCount){
+        this(data,context);
+        if (spanCount > 2) mNunColumns = spanCount;
     }
 
     /**
      * @return 必须返回itemView的布局id
      */
-    protected abstract @LayoutRes
-    int getItemLayoutId();
+    protected abstract @LayoutRes int getItemLayoutId();
 
     /**
      * *******RecyclerView.Adapter的四个方法，这里复写主要是让子类继承***************
@@ -111,20 +68,36 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      * @return
      */
     @Override
-    public BaseViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new BaseViewHolder(mLayoutId, parent);
     }
 
     /**
      * 绑定Item数据
      *
-     * @param holder
-     * @param position
+     * @param baseViewHolder
+     * @param i : position
      */
     @Override
-    public void onBindViewHolder(BaseViewViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseViewHolder baseViewHolder, int i) {
+        setData(baseViewHolder, i, mData.get(i));
+        setClickLisiner(baseViewHolder, i);
     }
 
+
+    @Override
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position, @NonNull List<Object> payloads) {
+        super.onBindViewHolder(holder, position, payloads);
+    }
+
+    /**
+     * 设置列表数据
+     *
+     * @param holder
+     * @param position
+     * @param item
+     */
+    public abstract void setData(BaseViewHolder holder, int position, T item);
 
     /**
      * 设置Item数量
@@ -133,7 +106,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      */
     @Override
     public int getItemCount() {
-        return 0;
+        return mData.size();
     }
 
     /**
@@ -144,7 +117,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      */
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        return position;
     }
 
     /**
@@ -163,187 +136,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      */
     public Context getContext() {
         return mContext;
-    }
-
-    /**
-     * ********设置HeaderView、FooterView和PullToLoading（上拉加载）***********
-     */
-
-//    /**
-//     * 获取HeaderView集合
-//     *
-//     * @return
-//     */
-//    public List<Integer> getHeaderView() {
-//        return mHeaderView;
-//    }
-//
-//    /**
-//     * 添加HeaderView集合
-//     *
-//     * @param headerViewId
-//     */
-//    public void addHeaderView(List<Integer> headerViewId, IHeaderView IHeaderView) {
-//        if (IHeaderView == null && headerViewId == null) {
-//            throw new RuntimeException("IIHeaderView或者headerViewId不能为空");
-//        }
-//        mHeaderView.addAll(headerViewId);
-//        this.mIHeaderView = IHeaderView;
-//    }
-//
-//    /**
-//     * 添加一个HeaderView
-//     *
-//     * @param headerViewId
-//     */
-//    public void addHeaderView(@LayoutRes int headerViewId, IHeaderView IHeaderView) {
-//        if (IHeaderView == null) {
-//            throw new RuntimeException("IIHeaderView不能为空");
-//        }
-//        mHeaderView.add(headerViewId);
-//        this.mIHeaderView = IHeaderView;
-//    }
-//
-//    /**
-//     * 获取FooterView
-//     *
-//     * @return
-//     */
-//    public List<Integer> getFooterView() {
-//        return mFooterView;
-//    }
-//
-//    /**
-//     * 添加FooterView集合
-//     *
-//     * @param footerViewIdList
-//     */
-//    public void addFooterView(List<Integer> footerViewIdList, IFooterView IFooterView) {
-//        if (IFooterView == null && footerViewIdList == null) {
-//            throw new RuntimeException("IIHeaderView或者headerViewId不能为空");
-//        }
-//        mFooterView.addAll(footerViewIdList);
-//        this.mIFootView = IFooterView;
-//    }
-//
-//    /**
-//     * 添加单个FooterView
-//     *
-//     * @param footerViewId
-//     */
-//    public void addFooterView(@LayoutRes int footerViewId, IFooterView IFooterView) {
-//        if (IFooterView == null) {
-//            throw new RuntimeException("IIHeaderView不能为空");
-//        }
-//        mFooterView.add(footerViewId);
-//        this.mIFootView = IFooterView;
-//    }
-
-    /**
-     * 上拉加载,当加载到最后一条Item的时候，会执行接口的回掉方法，
-     * 且当最后一个Item的posiotion大于等于PullLoadStartPosiotion才会执行
-     *
-     * @param pullToLoading 回掉接口
-     * @param num           RecyclerView的Item数量大于PullLoadStartPosiotion执行上拉加载
-     */
-    public void setPullToData(int num, boolean isLoading, IPullLoading pullToLoading) {
-        if (pullToLoading != null) {
-            this.isLoading = isLoading;
-            mIPullLoading = pullToLoading;
-            if (num > 1) {
-                pullLoadingPosition = num;
-            } else {
-                throw new RuntimeException("setPullToData()的PullLoadStartPosiotion不能小于0");
-            }
-        } else {
-            throw new RuntimeException("setPullToData()的pullToLoading不能为空");
-        }
-
-    }
-
-    /**
-     * *****************************设置EmptyView*************************
-     */
-
-    /**
-     * 设置EmptyView的布局
-     *
-     * @param layoutId ：布局Id
-     */
-    public void setEmptyViewId(@LayoutRes int layoutId) {
-        noDataViewId = layoutId;
-    }
-
-    /**
-     * 设置EmptyView
-     *
-     * @param iEmptyView 接口
-     */
-    public void setEmptyView(IEmptyView iEmptyView) {
-        this.mIEmptyView = iEmptyView;
-    }
-
-    /**
-     * 设置是否显示EmptyView
-     *
-     * @param showEmptyView true：显示，false隐藏
-     */
-    public void setShowEmptyView(boolean showEmptyView) {
-        isShowEmptyView = showEmptyView;
-    }
-
-
-    /**
-     * ***************************处理RecyclerView返回Item数量以及每个Item返回的类型的公共方法*************
-     */
-
-    /**
-     * 设置ItemType的类型
-     *
-     * @param posiotion
-     * @return 返回类型说明：
-     * 1.0-9999代表添加了HeaderView
-     * 2.10000代表列表数据（HeaderView和FooterView之间的数据）
-     * 3.20000-29999代表添加了FooterView
-     * 4.40000代表显示没有数据的默认布局
-     */
-    protected int setItemType(int posiotion) {
-//        int type = 0;
-//        if (isNoData) {
-//            //没有数据
-//            type = 40000;
-//        } else {
-//            if (posiotion < mHeaderView.size()) {
-//                //添加了HeaderView
-//                type = posiotion;
-//            } else if (posiotion < mHeaderView.size() + mData.size()) {
-//                //
-//                type = 10000;
-//            } else {
-//                if (posiotion < mHeaderView.size() + mData.size() + mFooterView.size()) {
-//                    //添加了FooterView
-//                    type = (20000 + posiotion - mHeaderView.size() - mData.size());
-//                }
-//            }
-//        }
-        return posiotion;
-    }
-
-    /**
-     * 设置Item的总数
-     * 主要是getItemCount（）方法来调用
-     *
-     * @return ItemCount Irem的数量
-     */
-    protected int setItemCount() {
-        int size;
-//        size = mHeaderView.size() + mData.size() + mFooterView.size();
-        size =  mData.size();
-        if (size == 0 && isShowEmptyView) {
-            isNoData = true;
-            size = 1;
-        }
-        return size;
     }
 
 
@@ -436,19 +228,19 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      * 设置监听
      */
     public interface OnClick {
-        void onClick(int position, BaseViewViewHolder holder);
+        void onClick(int position, BaseViewHolder holder);
     }
 
     public interface OnLongClick {
-        void onLongClick(int position, BaseViewViewHolder holder);
+        void onLongClick(int position, BaseViewHolder holder);
     }
 
     public interface OnItemClick {
-        void onItemClick(int position, BaseViewViewHolder holder);
+        void onItemClick(int position, BaseViewHolder holder);
     }
 
     public interface OnItemLongClick {
-        void onItemLongClick(int position, BaseViewViewHolder holder);
+        void onItemLongClick(int position, BaseViewHolder holder);
     }
 
     public void setOnClickListener(@IdRes int id, OnClick listener) {
@@ -540,7 +332,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
      * @param holder
      * @param position
      */
-    protected void setClickLisiner(final BaseViewViewHolder holder, final int position) {
+    protected void setClickLisiner(final BaseViewHolder holder, final int position) {
         if (clickLisiner != null) {
             if (clickLisiner.getOnClick() != null) {
                 View view = holder.getView(clickLisiner.clickId);
@@ -580,20 +372,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewViewHo
             }
         }
     }
-
-//    /**
-//     * 分割线
-//     * @param dividerHeight
-//     * @param dividerColor
-//     */
-//    public void addItemDecoration(int dividerHeight, @ColorRes int dividerColor) {
-//        if (getData().size()==0) {
-//            //没有数据不绘制分割线
-//        } else {
-//            mRecyclerView.addItemDecoration(new RecyclerDivider(dividerHeight,
-//                    this, mContext.getResources().getColor(dividerColor), mNunColumns));
-//        }
-//    }
 
 	public int getNumColums() {
 		return mNunColumns;

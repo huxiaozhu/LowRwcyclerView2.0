@@ -1,18 +1,18 @@
 package com.huxiaozhu.lowrecyclerview;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.huxiaozhu.recyclerviewlib.adapter.BaseAdapter;
-import com.huxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.VariableAdapter;
-import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewViewHolder;
-import com.huxiaozhu.recyclerviewlib.adapter.viewholder.ListViewHolder;
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHolder;
 import com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ExpandRecyclerView mRecyclerView;
-    private VariableAdapter<String> adapter;
+    private ListViewAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,29 +40,31 @@ public class MainActivity extends AppCompatActivity {
         data.add("瀑布流");
         data.add("通讯录顶吸效果");
         data.add("画廊");
-        adapter = new VariableAdapter<String>(data, this,2) {
+        adapter = new ListViewAdapter<String>(data, this) {
+
             @Override
             protected int getItemLayoutId() {
                 return R.layout.item;
             }
 
             @Override
-            protected void setData(ListViewHolder holder, int position, String item) {
+            public void setData(BaseViewHolder holder, int position, String item) {
                 Button button = holder.getButton(R.id.btn);
                 button.setText(item);
             }
+
         };
 
 		mRecyclerView.addHeaderView(View.inflate(this,R.layout.header_view,null));
 		mRecyclerView.addFooterView(View.inflate(this,R.layout.header_view,null));
-//        adapter.addItemDecoration(5, R.color.colorAccent);
+        mRecyclerView.addItemDecoration(5, R.color.colorAccent);
 		mRecyclerView.setAdapter(adapter);
     }
 
     private void setListener() {
         adapter.setOnClickListener(R.id.btn, new BaseAdapter.OnClick() {
             @Override
-            public void onClick(int position, BaseViewViewHolder holder) {
+            public void onClick(int position, BaseViewHolder holder) {
                 switch (position) {
                     case 0:
                         //ListView

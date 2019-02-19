@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * 底部(View)
  */
-public class FootViewHolder extends BaseViewViewHolder {
+public class FootViewHolder extends BaseViewHolder {
 
      public FootViewHolder(View view) {
         super(view);
