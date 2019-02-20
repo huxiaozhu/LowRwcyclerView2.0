@@ -10,9 +10,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.huxiaozhu.recyclerviewlib.adapter.BaseAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.HGridViewAdapter;
+import com.huxiaozhu.recyclerviewlib.adapter.HListViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.ListViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.VariableAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHolder;
+import com.huxiaozhu.recyclerviewlib.divider.ListDivider;
 import com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView;
 
 import java.util.ArrayList;
@@ -57,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
 		mRecyclerView.addHeaderView(View.inflate(this,R.layout.header_view,null));
 		mRecyclerView.addFooterView(View.inflate(this,R.layout.header_view,null));
-        mRecyclerView.addItemDecoration(5, R.color.colorAccent);
 		mRecyclerView.setAdapter(adapter);
     }
 

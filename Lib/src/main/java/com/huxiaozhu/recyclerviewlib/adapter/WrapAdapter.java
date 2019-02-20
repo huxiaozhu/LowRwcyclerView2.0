@@ -66,16 +66,18 @@ public final class WrapAdapter extends RecyclerView.Adapter {
         this.mFooterView = footerView;
     }
 
-//    public void addEmptyView(View emptyView) {
-//        this.mEmpterView = emptyView;
-//    }
-
     public void addAdapter(RecyclerView.Adapter adapter) {
         mAdapter = adapter;
     }
 
     public View getmHeaderView() {
         return mHeaderView;
+    }
+    public View getmFooterView() {
+        return mFooterView;
+    }
+    public RecyclerView.Adapter getmAdapter() {
+        return mAdapter;
     }
 
     @Override
