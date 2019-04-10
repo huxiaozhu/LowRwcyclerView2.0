@@ -1,13 +1,14 @@
 package com.huxiaozhu.recyclerviewlib.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.FootViewHolder;
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.HeadViewHolder;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public final class WrapAdapter extends RecyclerView.Adapter {
     private static final int HEADER = -0x100;

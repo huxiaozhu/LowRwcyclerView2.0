@@ -1,9 +1,6 @@
 
 package com.huxiaozhu.recyclerviewlib.adapter.viewholder;
 
-import android.support.annotation.IdRes;
-
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.IdRes;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by liuxiaozhu on 2017/4/26.

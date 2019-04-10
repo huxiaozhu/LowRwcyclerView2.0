@@ -1,14 +1,6 @@
 package com.huxiaozhu.recyclerviewlib.widget;
 
 import android.content.Context;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -25,6 +17,14 @@ import com.huxiaozhu.recyclerviewlib.divider.HGridDivider;
 import com.huxiaozhu.recyclerviewlib.divider.HListDivider;
 import com.huxiaozhu.recyclerviewlib.divider.ListDivider;
 import com.huxiaozhu.recyclerviewlib.divider.VariableDivider;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * 扩展RecyclerView
@@ -70,7 +70,7 @@ public class ExpandRecyclerView extends RecyclerView {
             if (adapter instanceof ListViewAdapter) {
                 //设置recyclerView显示方式
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                manager.setOrientation(RecyclerView.VERTICAL);
                 setLayoutManager(manager);
             } else if (adapter instanceof HListViewAdapter) {
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -79,7 +79,7 @@ public class ExpandRecyclerView extends RecyclerView {
             } else if (adapter instanceof GridViewAdapter) {
                 final int finalMNunColumns = ((GridViewAdapter) adapter).getNumColums();
                 GridLayoutManager manager = new GridLayoutManager(getContext(), finalMNunColumns);
-                manager.setOrientation(GridLayoutManager.VERTICAL);
+                manager.setOrientation(RecyclerView.VERTICAL);
                 //设置头布局，尾布局占满
                 manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override

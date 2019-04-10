@@ -2,16 +2,18 @@
 package com.huxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by liuxiaozhu on 2017/7/15.

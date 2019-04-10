@@ -2,11 +2,12 @@ package com.huxiaozhu.recyclerviewlib.divider;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.huxiaozhu.recyclerviewlib.adapter.VariableAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.WrapAdapter;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class VariableDivider extends BaseDivider{
 

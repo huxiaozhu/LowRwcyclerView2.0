@@ -4,12 +4,12 @@ package com.huxiaozhu.recyclerviewlib.divider;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.ColorRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.huxiaozhu.recyclerviewlib.adapter.BaseAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.WrapAdapter;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by chenhui on 2017/4/26.
