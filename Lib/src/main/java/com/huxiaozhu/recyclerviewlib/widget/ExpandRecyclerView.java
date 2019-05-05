@@ -4,6 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.huxiaozhu.recyclerviewlib.adapter.BaseAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.GridViewAdapter;
 import com.huxiaozhu.recyclerviewlib.adapter.HGridViewAdapter;
@@ -18,13 +26,6 @@ import com.huxiaozhu.recyclerviewlib.divider.HListDivider;
 import com.huxiaozhu.recyclerviewlib.divider.ListDivider;
 import com.huxiaozhu.recyclerviewlib.divider.VariableDivider;
 
-import androidx.annotation.ColorRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * 扩展RecyclerView
@@ -64,7 +65,6 @@ public class ExpandRecyclerView extends RecyclerView {
     }
 
     private void setManager(final Adapter adapter) {
-        final int head = mAdapter.getmHeaderView() == null ? 0 : 1;
 
         if (adapter instanceof BaseAdapter) {
             if (adapter instanceof ListViewAdapter) {
@@ -80,15 +80,17 @@ public class ExpandRecyclerView extends RecyclerView {
                 final int finalMNunColumns = ((GridViewAdapter) adapter).getNumColums();
                 GridLayoutManager manager = new GridLayoutManager(getContext(), finalMNunColumns);
                 manager.setOrientation(RecyclerView.VERTICAL);
-                //设置头布局，尾布局占满
+
                 manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
-                        if (position >= head && position < adapter.getItemCount() + head) {
-                            return 1;
-                        } else {
+                        if (mAdapter.getmHeaderView() != null && position == 0) {
                             return finalMNunColumns;
                         }
+                        if (mAdapter.getmFooterView() != null && position == adapter.getItemCount() - 1) {
+                            return finalMNunColumns;
+                        }
+                        return 1;
                     }
                 });
                 setLayoutManager(manager);

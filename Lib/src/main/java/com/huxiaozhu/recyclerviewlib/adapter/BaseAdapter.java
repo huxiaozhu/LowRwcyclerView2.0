@@ -5,15 +5,17 @@ import android.content.Context;
 
 import android.view.View;
 import android.view.ViewGroup;
-import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by liuxiaozhu on 2017/7/15.
@@ -81,12 +83,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     public void onBindViewHolder(@NonNull BaseViewHolder baseViewHolder, int i) {
         setData(baseViewHolder, i, mData.get(i));
         setClickLisiner(baseViewHolder, i);
-    }
-
-
-    @Override
-    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position, @NonNull List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
     }
 
     /**
@@ -177,6 +173,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         }
     }
 
+    public void removeData(T result) {
+        mData.remove(result);
+        notifyDataSetChanged();
+    }
+
     /**
      * 删除全部数据（不包括HeaderView和FooterView）
      */
@@ -221,6 +222,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
             notifyDataSetChanged();
         }
     }
+
 
     /**
      * *******************************

@@ -2,9 +2,6 @@
 package com.huxiaozhu.recyclerviewlib.adapter;
 
 import android.content.Context;
-import android.view.ViewGroup;
-
-import com.huxiaozhu.recyclerviewlib.adapter.viewholder.BaseViewHolder;
 
 import java.util.List;
 
