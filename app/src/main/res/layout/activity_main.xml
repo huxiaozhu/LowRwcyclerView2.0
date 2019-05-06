@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.huxiaozhu.lowrecyclerview.MainActivity">
 
-    <com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView
-        android:id="@+id/re"
+    <com.huxiaozhu.recyclerviewlib.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView>
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+    </com.huxiaozhu.recyclerviewlib.widget.SwipeRefreshLayout>
+    <!--<com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView-->
+        <!--android:id="@+id/re"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+    <!--</com.huxiaozhu.recyclerviewlib.widget.ExpandRecyclerView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
