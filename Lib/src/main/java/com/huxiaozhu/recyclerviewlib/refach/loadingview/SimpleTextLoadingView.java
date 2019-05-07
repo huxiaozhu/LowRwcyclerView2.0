@@ -10,12 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.huxiaozhu.recyclerviewlib.R;
-import com.huxiaozhu.recyclerviewlib.refach.SDPullToRefreshView;
+import com.huxiaozhu.recyclerviewlib.refach.PullToRefreshView;
+import com.huxiaozhu.recyclerviewlib.refach.enmu.LoadingViewType;
+import com.huxiaozhu.recyclerviewlib.refach.enmu.State;
 
-import static com.huxiaozhu.recyclerviewlib.refach.ISDPullToRefreshView.*;
 
-
-public class SimpleTextLoadingView extends SDPullToRefreshLoadingView {
+public class SimpleTextLoadingView extends PullToRefreshLoadingView {
     private TextView tv_content;
 
     public SimpleTextLoadingView(@NonNull Context context) {
@@ -42,7 +42,7 @@ public class SimpleTextLoadingView extends SDPullToRefreshLoadingView {
         return this.tv_content;
     }
 
-    public void onStateChanged(State newState, State oldState, SDPullToRefreshView view) {
+    public void onStateChanged(State newState, State oldState, PullToRefreshView view) {
         switch(newState) {
             case RESET:
             case PULL_TO_REFRESH:

@@ -156,5 +156,6 @@
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.0.0@jar" level="project" />
     <orderEntry type="module" module-name="Lib" />
     <orderEntry type="module" module-name="Lib" />
+    <orderEntry type="module" module-name="Lib" />
   </component>
 </module>

@@ -5,9 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
 
-class SDTouchHelper {
-    private static final String TAG = "SDTouchHelper";
-    private boolean mIsDebug;
+class TouchHelper {
     public static final int EVENT_DOWN = 0;
     public static final int EVENT_LAST = 1;
     private boolean mIsNeedIntercept = false;
@@ -22,14 +20,10 @@ class SDTouchHelper {
     private float mMoveY;
     private float mUpX;
     private float mUpY;
-    private SDTouchHelper.Direction mDirection;
+    private TouchHelper.Direction mDirection;
 
-    SDTouchHelper() {
-        this.mDirection = SDTouchHelper.Direction.None;
-    }
-
-    public void setDebug(boolean debug) {
-        this.mIsDebug = debug;
+    TouchHelper() {
+        this.mDirection = TouchHelper.Direction.None;
     }
 
     public void processTouchEvent(MotionEvent ev) {
@@ -37,11 +31,11 @@ class SDTouchHelper {
         this.mLastY = this.mCurrentY;
         this.mCurrentX = ev.getRawX();
         this.mCurrentY = ev.getRawY();
-        switch(ev.getAction()) {
+        switch (ev.getAction()) {
             case 0:
                 this.mDownX = this.mCurrentX;
                 this.mDownY = this.mCurrentY;
-                this.setDirection(SDTouchHelper.Direction.None);
+                this.setDirection(TouchHelper.Direction.None);
                 break;
             case 1:
                 this.mUpX = this.mCurrentX;
@@ -52,10 +46,8 @@ class SDTouchHelper {
                 this.mMoveY = this.mCurrentY;
         }
 
-        if (this.mIsDebug) {
-            StringBuilder sb = this.getDebugInfo();
-            Log.i("SDTouchHelper", "event " + ev.getAction() + ":" + sb.toString());
-        }
+        StringBuilder sb = this.getDebugInfo();
+        Log.i("TouchHelper", "event " + ev.getAction() + ":" + sb.toString());
 
     }
 
@@ -100,20 +92,20 @@ class SDTouchHelper {
     }
 
     public void saveDirection() {
-        if (this.mDirection == SDTouchHelper.Direction.None) {
+        if (this.mDirection == TouchHelper.Direction.None) {
             float dx = this.getDeltaXFrom(0);
             float dy = this.getDeltaYFrom(0);
             if (dx != 0.0F || dy != 0.0F) {
                 if (Math.abs(dx) > Math.abs(dy)) {
                     if (dx < 0.0F) {
-                        this.setDirection(SDTouchHelper.Direction.MoveLeft);
+                        this.setDirection(TouchHelper.Direction.MoveLeft);
                     } else if (dx > 0.0F) {
-                        this.setDirection(SDTouchHelper.Direction.MoveRight);
+                        this.setDirection(TouchHelper.Direction.MoveRight);
                     }
                 } else if (dy < 0.0F) {
-                    this.setDirection(SDTouchHelper.Direction.MoveTop);
+                    this.setDirection(TouchHelper.Direction.MoveTop);
                 } else if (dy > 0.0F) {
-                    this.setDirection(SDTouchHelper.Direction.MoveBottom);
+                    this.setDirection(TouchHelper.Direction.MoveBottom);
                 }
 
             }
@@ -121,13 +113,13 @@ class SDTouchHelper {
     }
 
     public void saveDirectionHorizontal() {
-        if (this.mDirection != SDTouchHelper.Direction.MoveLeft && this.mDirection != SDTouchHelper.Direction.MoveRight) {
-            int dx = (int)this.getDeltaXFrom(0);
+        if (this.mDirection != TouchHelper.Direction.MoveLeft && this.mDirection != TouchHelper.Direction.MoveRight) {
+            int dx = (int) this.getDeltaXFrom(0);
             if (dx != 0) {
                 if (dx < 0) {
-                    this.setDirection(SDTouchHelper.Direction.MoveLeft);
+                    this.setDirection(TouchHelper.Direction.MoveLeft);
                 } else if (dx > 0) {
-                    this.setDirection(SDTouchHelper.Direction.MoveRight);
+                    this.setDirection(TouchHelper.Direction.MoveRight);
                 }
 
             }
@@ -135,33 +127,30 @@ class SDTouchHelper {
     }
 
     public void saveDirectionVertical() {
-        if (this.mDirection != SDTouchHelper.Direction.MoveTop && this.mDirection != SDTouchHelper.Direction.MoveBottom) {
-            int dy = (int)this.getDeltaYFrom(0);
+        if (this.mDirection != TouchHelper.Direction.MoveTop && this.mDirection != TouchHelper.Direction.MoveBottom) {
+            int dy = (int) this.getDeltaYFrom(0);
             if (dy != 0) {
                 if (dy < 0) {
-                    this.setDirection(SDTouchHelper.Direction.MoveTop);
+                    this.setDirection(TouchHelper.Direction.MoveTop);
                 } else if (dy > 0) {
-                    this.setDirection(SDTouchHelper.Direction.MoveBottom);
+                    this.setDirection(TouchHelper.Direction.MoveBottom);
                 }
 
             }
         }
     }
 
-    private void setDirection(SDTouchHelper.Direction direction) {
+    private void setDirection(TouchHelper.Direction direction) {
         this.mDirection = direction;
-        if (this.mIsDebug) {
-            Log.i("SDTouchHelper", "setDirection:" + direction);
-        }
-
+        Log.i("TouchHelper", "setDirection:" + direction);
     }
 
-    public SDTouchHelper.Direction getDirection() {
+    public TouchHelper.Direction getDirection() {
         return this.mDirection;
     }
 
     public float getDeltaXFrom(int event) {
-        switch(event) {
+        switch (event) {
             case 0:
                 return this.mCurrentX - this.mDownX;
             case 1:
@@ -172,7 +161,7 @@ class SDTouchHelper {
     }
 
     public float getDeltaYFrom(int event) {
-        switch(event) {
+        switch (event) {
             case 0:
                 return this.mCurrentY - this.mDownY;
             case 1:
@@ -189,7 +178,7 @@ class SDTouchHelper {
         } else {
             float dy = this.getDeltaYFrom(event);
             float angle = Math.abs(dy) / Math.abs(dx);
-            return Math.toDegrees(Math.atan((double)angle));
+            return Math.toDegrees(Math.atan((double) angle));
         }
     }
 
@@ -200,7 +189,7 @@ class SDTouchHelper {
         } else {
             float dx = this.getDeltaXFrom(event);
             float angle = Math.abs(dx) / Math.abs(dy);
-            return Math.toDegrees(Math.atan((double)angle));
+            return Math.toDegrees(Math.atan((double) angle));
         }
     }
 

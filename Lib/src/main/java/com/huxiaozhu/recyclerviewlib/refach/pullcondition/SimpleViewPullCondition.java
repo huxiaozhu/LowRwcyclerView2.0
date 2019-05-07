@@ -4,11 +4,11 @@ import android.view.View;
 
 import androidx.core.view.ViewCompat;
 
-import com.huxiaozhu.recyclerviewlib.refach.ISDPullToRefreshView;
+import com.huxiaozhu.recyclerviewlib.refach.IPullToRefreshView;
 
 import java.lang.ref.WeakReference;
 
-public class SimpleViewPullCondition implements ISDPullToRefreshView.IPullCondition {
+public class SimpleViewPullCondition implements IPullToRefreshView.IPullCondition {
     private WeakReference<View> mView;
 
     public SimpleViewPullCondition(View view) {

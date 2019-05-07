@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.huxiaozhu.recyclerviewlib.R;
 
-public abstract class SimpleImageLoadingView extends SDPullToRefreshLoadingView {
+public abstract class SimpleImageLoadingView extends PullToRefreshLoadingView {
     private ImageView iv_image;
 
     public SimpleImageLoadingView(@NonNull Context context) {
@@ -31,11 +31,11 @@ public abstract class SimpleImageLoadingView extends SDPullToRefreshLoadingView 
 
     protected void init() {
         LayoutInflater.from(this.getContext()).inflate(R.layout.view_simple_image_loading, this, true);
-        this.iv_image = (ImageView)this.findViewById(R.id.iv_image);
+        this.iv_image = findViewById(R.id.iv_image);
     }
 
     public ImageView getImageView() {
-        return this.iv_image;
+        return iv_image;
     }
 }
 
