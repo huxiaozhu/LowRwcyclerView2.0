@@ -654,7 +654,7 @@ public class PullToRefreshView extends ViewGroup implements IPullToRefreshView {
             footerView = new SimpleTextLoadingView(getContext());
         }
 
-        this.setFooterView((PullToRefreshLoadingView) footerView);
+        this.setFooterView(footerView);
     }
 
     protected PullToRefreshLoadingView onCreateHeaderView() {

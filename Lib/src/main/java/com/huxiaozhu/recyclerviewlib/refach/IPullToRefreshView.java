@@ -38,7 +38,7 @@ public interface IPullToRefreshView {
 
     void stopRefreshing();
 
-    void stopRefreshingWithResult(boolean var1);
+    void stopRefreshingWithResult(boolean success);
 
     boolean isRefreshing();
 
