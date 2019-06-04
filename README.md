@@ -1,10 +1,10 @@
 # LowRwcyclerView2.0
 LowRecycleView2.0
 
-1.封装RecyclerView通用adapter，支持列表、网格布局、瀑布流以及divider，
-2.重构代码结构，降低代码的耦合性。
-3.删除不常用的功能，减少代码冗余
-4.下拉刷新上拉加载调研中
+1.封装RecyclerView通用adapter，支持列表、网格布局、瀑布流以及divider，  
+2.重构代码结构，降低代码的耦合性。  
+3.删除不常用的功能，减少代码冗余  
+4.下拉刷新上拉加载调研中  
 
 
 ```
